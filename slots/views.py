@@ -114,5 +114,7 @@ def book_slot(request):
             context['booked_by'] = request.POST.get('username')
             obj = UserSlots.objects.create(user=context['user'],start_time =context['start_time'], end_time = context['end_time'],reason = context['reason'], slot_booked_by_id = context['booked_by'] )
             obj.save()
+            context['error'] = 'Slot Booked Successfully'
+
     # add the dictionary during initialization
     return render(request, "book_slots.html", context)
