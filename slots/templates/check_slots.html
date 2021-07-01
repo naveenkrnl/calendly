@@ -1,0 +1,44 @@
+{% include 'base.html' %}
+
+{% block content %}
+<style>
+    .booked{
+        color: red;
+    }
+</style>
+<div class='row mt-5'>
+    <div class='col-4'></div>
+    <div class='col-4'>
+        <div class='error' style='color:red'>{{ error }}</div>
+        <div class='success' style='color:green'>{{ success }}</div>
+
+        <form method='post'>
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Enter name to check available slots</label>
+                <select class="form-select" aria-label="Default select example" id='username' name='username'>
+                    <option selected value="0">Open this select menu</option>
+                    {% for i in users %}
+                    <option value="{{ i.id }}">{{ i.name }}</option>
+                    {% endfor %}
+                </select>
+                <label for="exampleInputEmail1" class="form-label">Choose Date for Slots</label>
+                <input type="date" class="form-control" id="date" name="date" value="{{today}}">
+
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    <div class='col-4'></div>
+</div>
+{% if slots %}
+<div style='margin-left:30px;margin-right:30px'>
+    <h3 class='mt-5'>Available Slots - </h3>
+    <div class='row'>
+        {% for i in slots %}
+        <div class='col-2 mt-2'><a class='{{ i.status }}' href='/book-slot/?start_time={{ i.start_time }}&end_time={{ i.end_time }}&user={{ user_id }}'>{{ i.label }}</a></div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+{% endblock %}

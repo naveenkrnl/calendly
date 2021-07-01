@@ -1,0 +1,35 @@
+{% include 'base.html' %}
+
+{% block content %}
+<div class='row mt-5'>
+    <div class='col-4'></div>
+    <div class='col-4'>
+        <div class='error' style='color:red'>{{ error }}</div>
+        <div class='success' style='color:green'>{{ success }}</div>
+
+        <form method='post'>
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Name</label>
+                <input type="text" class="form-control" id="user" name="user" value="{{ user.name }}" disabled>
+                <label for="exampleInputEmail1" class="form-label">start_time</label>
+                <input type="text" class="form-control" id="start_time" name="start_time" value="{{ start_time }}" disabled>
+                <label for="exampleInputEmail1" class="form-label">end_time</label>
+                <input type="text" class="form-control" id="end_time" name="end_time" value="{{ end_time }}" disabled>
+                <label for="exampleInputEmail1" class="form-label">Reason</label>
+                <input type="text" class="form-control" id="reason" name="reason">
+                <label for="exampleInputEmail1" class="form-label">Booked By </label>
+                <select class="form-select" aria-label="Default select example" id='username' name='username'>
+                    <option selected value="0">Open this select menu</option>
+                    {% for i in users %}
+                    <option value="{{ i.id }}">{{ i.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    <div class='col-4'></div>
+</div>
+
+{% endblock %}
